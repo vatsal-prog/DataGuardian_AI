@@ -1,0 +1,9 @@
+.dataguardian/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/

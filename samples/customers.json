@@ -1,0 +1,8 @@
+[
+  {"customer_id": "C-01", "name": "Ada Lovelace", "segment": "Enterprise", "city": "London", "active": "yes"},
+  {"customer_id": "C-02", "name": "Grace Hopper", "segment": " enterprise ", "city": "New York", "active": "YES"},
+  {"customer_id": "C-02", "name": "Grace Hopper", "segment": " enterprise ", "city": "New York", "active": "YES"},
+  {"customer_id": "C-03", "name": "Alan Turing", "segment": "research", "city": "N/A", "active": "no"},
+  {"customer_id": "C-04", "name": "Katherine Johnson", "segment": "Enterprise", "city": "Hampton", "active": "true"},
+  {"customer_id": "C-05", "name": "Margaret Hamilton", "segment": "enterprise", "city": "Cambridge", "active": "True"}
+]

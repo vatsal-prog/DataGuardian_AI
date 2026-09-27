@@ -1,0 +1,13 @@
+invoice_id,vendor,amount,invoice_date
+INV-1,Acme,100.00,2024-01-01
+INV-1,Acme,250.00,2024-01-02
+INV-2,Globex,80.00,2024-01-03
+INV-3,Initech,TBD,2024-01-04
+INV-4,Umbrella,n/a,2024-01-05
+INV-5,Stark,-40,2024-01-06
+INV-6,Wayne,120.00,2024-01-07
+INV-7,Oscorp,TBD,2024-01-08
+INV-8,LexCorp,see-note,2024-01-09
+INV-9,Hooli,55.00,2024-01-10
+INV-10,Pied Piper,N/A,2024-01-11
+INV-11,Massive Dynamic,-15.50,2024-01-12

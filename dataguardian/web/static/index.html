@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DataGuardian</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <p class="mark">DataGuardian</p>
+      <p class="tag">Raw extracts in. Trusted rows and answers out.</p>
+    </div>
+    <p class="warehouse" id="warehouse">Warehouse</p>
+  </header>
+
+  <nav class="views" aria-label="Sections">
+    <button type="button" class="active" data-view="run">Pipeline</button>
+    <button type="button" data-view="data">Datasets</button>
+    <button type="button" data-view="ask">Ask</button>
+    <button type="button" data-view="reviews">Review <span id="review-count"></span></button>
+  </nav>
+
+  <main>
+    <section id="view-run" class="view">
+      <div class="layout">
+        <div class="panel source-panel">
+          <h1>Run a source</h1>
+          <p class="lede">CSV, JSON, an HTTP API, or a database query. Each run profiles the extract, explains the defects, and publishes only when the repair checks pass.</p>
+
+          <div class="samples">
+            <button type="button" data-sample="orders">Orders CSV</button>
+            <button type="button" data-sample="customers">Customers JSON</button>
+            <button type="button" data-sample="broken_ledger">Broken ledger</button>
+          </div>
+
+          <form id="upload-form">
+            <label class="drop" for="file">
+              <span>Drop a CSV or JSON file, or browse</span>
+              <input id="file" name="file" type="file" accept=".csv,.json,text/csv,application/json" />
+            </label>
+          </form>
+
+          <form id="api-form" class="stack">
+            <label for="api-url">API URL</label>
+            <div class="row">
+              <input id="api-url" type="url" placeholder="https://example.com/records" />
+              <button type="submit">Ingest</button>
+            </div>
+            <button type="button" id="demo-api" class="ghost">Use the demo feed</button>
+          </form>
+
+          <details>
+            <summary>Database source</summary>
+            <form id="db-form" class="stack">
+              <label for="db-kind">Engine</label>
+              <select id="db-kind">
+                <option value="postgres">PostgreSQL</option>
+                <option value="sqlite">SQLite file</option>
+              </select>
+              <label for="db-url">Connection URL or file path</label>
+              <input id="db-url" type="text" placeholder="postgresql://user:pass@localhost:5432/warehouse" />
+              <label for="db-query">SELECT query</label>
+              <textarea id="db-query" rows="3" placeholder="SELECT * FROM orders"></textarea>
+              <button type="submit">Ingest query</button>
+            </form>
+          </details>
+          <p class="hint" id="run-error" role="alert"></p>
+        </div>
+
+        <div class="panel result-panel">
+          <div id="empty-arch">
+            <h2>The path a row takes</h2>
+            <ol class="rail static-rail">
+              <li><strong>Data sources</strong><span>CSV, JSON, APIs, PostgreSQL</span></li>
+              <li><strong>Ingestion agent</strong><span>Understand the source and schema</span></li>
+              <li><strong>Data profiler</strong><span>Types, statistics, distributions</span></li>
+              <li><strong>Quality agent</strong><span>Detect issues</span></li>
+              <li><strong>Root-cause agent</strong><span>Why did it happen?</span></li>
+              <li><strong>Repair agent</strong><span>Generate safe fixes</span></li>
+              <li><strong>Validation agent</strong><span>Did the fix work?</span></li>
+            </ol>
+            <div class="branch">
+              <div><strong>Pass</strong><span>Store in the database, then ask questions or read the dashboard.</span></div>
+              <div><strong>Fail</strong><span>Roll back the publish and wait for a person to review.</span></div>
+            </div>
+          </div>
+          <div id="report" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-data" class="view" hidden>
+      <div class="panel">
+        <h1>Published datasets</h1>
+        <p class="lede">Only runs that pass validation land here. The query agent reads these tables.</p>
+        <div id="datasets"></div>
+      </div>
+    </section>
+
+    <section id="view-ask" class="view" hidden>
+      <div class="panel ask-panel">
+        <h1>Ask the warehouse</h1>
+        <p class="lede">A question becomes one read-only SQL statement. Try “how many orders”, “average amount”, or “total amount by country”.</p>
+        <form id="ask-form" class="stack">
+          <label for="dataset">Dataset</label>
+          <select id="dataset"></select>
+          <label for="question">Question</label>
+          <textarea id="question" rows="3" placeholder="total amount by country"></textarea>
+          <button type="submit">Generate SQL and run it</button>
+        </form>
+        <p class="hint" id="ask-error" role="alert"></p>
+        <div id="answer"></div>
+      </div>
+    </section>
+
+    <section id="view-reviews" class="view" hidden>
+      <div class="panel">
+        <h1>Human review</h1>
+        <p class="lede">Failed runs are not stored. Approving applies the held repairs and publishes only if validation then passes.</p>
+        <div id="reviews"></div>
+      </div>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
